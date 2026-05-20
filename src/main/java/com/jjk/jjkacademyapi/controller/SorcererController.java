@@ -1,7 +1,9 @@
 package com.jjk.jjkacademyapi.controller;
 
+import com.jjk.jjkacademyapi.dto.SorcererRequest;
 import com.jjk.jjkacademyapi.model.Sorcerer;
 import com.jjk.jjkacademyapi.service.SorcererService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,8 @@ public class SorcererController {
     private final SorcererService sorcererService;
 
     @PostMapping
-    public ResponseEntity<Sorcerer> create(@RequestBody Sorcerer sorcerer) {
-        return ResponseEntity.ok(sorcererService.createSorcerer((sorcerer)));
+    public ResponseEntity<Sorcerer> create(@Valid @RequestBody SorcererRequest request) {
+        return ResponseEntity.ok(sorcererService.createSorcerer((request)));
     }
 
     @GetMapping
@@ -28,6 +30,11 @@ public class SorcererController {
     @GetMapping("/{id}")
     public ResponseEntity<Sorcerer> getById(@PathVariable UUID id) {
         return ResponseEntity.ok(sorcererService.getSorcererById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Sorcerer> update (@PathVariable UUID id, @Valid @RequestBody SorcererRequest request) {
+        return ResponseEntity.ok(sorcererService.updateSorcerer(id, request));
     }
 
     @DeleteMapping("/{id}")
