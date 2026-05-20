@@ -1,15 +1,13 @@
 package com.jjk.jjkacademyapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "sorceres")
+@Table(name = "sorcerers")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,4 +22,10 @@ public class Sorcerer {
     private Integer age;
     private String rank;
     private String cursedTechnique;
+
+    @ManyToOne
+    @JoinColumn(name = "clan_id")
+    @JsonBackReference
+    @ToString.Exclude
+    private Clan clan;
 }

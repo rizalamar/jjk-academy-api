@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/sorcerers")
+@RequestMapping("/api/v1/sorcerers")
 @RequiredArgsConstructor
 public class SorcererController {
     private final SorcererService sorcererService;
@@ -30,7 +30,7 @@ public class SorcererController {
         return ResponseEntity.ok(sorcererService.getSorcererById(id));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete (@PathVariable UUID id) {
         sorcererService.deleteSorcerer(id);
         return ResponseEntity.noContent().build();

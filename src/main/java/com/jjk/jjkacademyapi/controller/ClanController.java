@@ -30,7 +30,7 @@ public class ClanController {
         return ResponseEntity.ok(clanService.getClanById(id));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         clanService.deleteClan(id);
         return ResponseEntity.noContent().build();

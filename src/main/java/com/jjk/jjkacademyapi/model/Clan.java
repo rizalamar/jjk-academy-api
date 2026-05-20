@@ -1,11 +1,10 @@
 package com.jjk.jjkacademyapi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,8 +21,11 @@ public class Clan {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    private Sorcerer sorcerer;
+    @OneToMany(mappedBy = "clan")
+    @JsonManagedReference
+    @ToString.Exclude
+    private List<Sorcerer> sorcerers;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 }
