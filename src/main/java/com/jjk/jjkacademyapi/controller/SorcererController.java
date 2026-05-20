@@ -5,6 +5,7 @@ import com.jjk.jjkacademyapi.model.Sorcerer;
 import com.jjk.jjkacademyapi.service.SorcererService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,11 @@ public class SorcererController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Sorcerer>> getAll() {
-        return ResponseEntity.ok(sorcererService.getAllSorcerers());
+    public ResponseEntity<Page<Sorcerer>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(sorcererService.getAllSorcerers(page, size));
     }
 
     @GetMapping("/{id}")

@@ -6,6 +6,10 @@ import com.jjk.jjkacademyapi.model.Sorcerer;
 import com.jjk.jjkacademyapi.repository.ClanRepository;
 import com.jjk.jjkacademyapi.repository.SorcererRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +39,11 @@ public class SorcererService {
         return sorcererRepository.save(sorcerer);
     }
 
-    public List<Sorcerer> getAllSorcerers(){return sorcererRepository.findAll();}
+    public Page<Sorcerer> getAllSorcerers(int page, int size){
+//        Membuat object Pageable (Halaman ke-berapa, berapa data perhalaman, dan urutkan berdasarkan apa)
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        return sorcererRepository.findAll(pageable);
+    }
 
     public Sorcerer getSorcererById(UUID id){
         return sorcererRepository.findById(id).orElseThrow(() -> new RuntimeException("Sorcerer not found with id: " + id));
